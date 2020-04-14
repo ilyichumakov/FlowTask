@@ -102,18 +102,5 @@ namespace FlowTask
             return new Graph(d);
         }
 
-        public static Graph ImproveFloyd(Graph a, Graph b)
-        {            
-            bool flag = true;
-            int n = a.nodes.Count;
-
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    if (a.matrixGraph[i][j] != b.matrixGraph[i][j])
-                        flag = false;
-
-            if (flag) return a;
-            else return ImproveFloyd(b, b.Floyd());
-        }
     }
 }

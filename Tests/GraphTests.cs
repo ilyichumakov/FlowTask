@@ -12,10 +12,10 @@ namespace Tests
     public class GraphTests
     {
         [Test]
-        public void FloydTest()
+        public void FloydTestSimple()
         {
             int[][] matrixx = new int[5][];
-            
+
             matrixx[0] = new int[] { 0, 1, 3, Int32.MaxValue, Int32.MaxValue };
             matrixx[1] = new int[] { 1, 0, Int32.MaxValue, 2, Int32.MaxValue };
             matrixx[2] = new int[] { 3, Int32.MaxValue, 0, 2, 7 };
@@ -32,12 +32,11 @@ namespace Tests
 
             Graph g = new Graph(matrixx);
 
-            Graph minimalG = Graph.ImproveFloyd(g, g.Floyd());
+            Graph minimalG = g.Floyd();
 
             Graph realMinimalG = new Graph(minimal);
 
             Assert.AreEqual(minimalG.Matrix, realMinimalG.Matrix);
-
         }
     }
 }
