@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlowTask
 {
-    public class GraphLeaf : IComparable<GraphLeaf>
+    public class GraphLeaf : IComparable<GraphLeaf>, ICloneable, IEquatable<GraphLeaf>
     {
         public Tuple<int, int> Link { get; }
 
@@ -25,6 +25,17 @@ namespace FlowTask
             if (obj.Price == this.Price)
                 return 0;
             return 1;
+        }
+
+        public object Clone()
+        {
+            return new GraphLeaf(this.Link.Item1, this.Link.Item2, this.Price);
+        }
+
+        public bool Equals(GraphLeaf other)
+        {
+            if (other == null) return false;
+            return (this.Price.Equals(other.Price) && this.Link.Equals(other.Link));
         }
     }
 }

@@ -37,12 +37,12 @@ namespace FlowTask
                 {
                     if (i == j) continue;
 
-                    Tuple<int, int> t1 = new Tuple<int, int>(i, j);
-                    Tuple<int, int> t2 = new Tuple<int, int>(j, i);
+                    Tuple<int, int> t1 = new Tuple<int, int>(i + 1, j + 1);
+                    Tuple<int, int> t2 = new Tuple<int, int>(j + 1, i + 1);
 
                     foreach (GraphLeaf l in leaves)
                     {
-                        if (l.Link == t1 || l.Link == t2)
+                        if (l.Link.Equals(t1) || l.Link.Equals(t2))
                         {
                             matrixGraph[i][j] = l.Price;
                             break;
@@ -71,7 +71,7 @@ namespace FlowTask
                 {                   
                     Tuple<int, int> t1 = new Tuple<int, int>(i, j);
                     
-                    leaves.Add(new GraphLeaf(i, j, matrix[i][j]));
+                    leaves.Add(new GraphLeaf(i + 1, j + 1, matrix[i][j]));
                 }
             }
         }
@@ -102,5 +102,56 @@ namespace FlowTask
             return new Graph(d);
         }
 
+        public Graph PrimAlgorythm()
+        {
+            List<GraphNode> usedNodes = new List<GraphNode>();
+            List<GraphNode> notUsedNodes = nodes.Select(item => (GraphNode)item.Clone()).ToList();
+            List<GraphLeaf> notUsedLeaves = leaves.Select(item => (GraphLeaf)item.Clone()).ToList();
+            List<GraphLeaf> MST = new List<GraphLeaf>();
+
+            usedNodes.Add(new GraphNode(1));
+            notUsedNodes.Remove(new GraphNode(1));
+
+            while(notUsedNodes.Count > 0)
+            {
+                int minPrice = -1;
+                GraphLeaf optimal = new GraphLeaf(0, 0, 0);
+                                    
+                foreach (GraphLeaf l in notUsedLeaves)
+                {
+                    if (usedNodes.Contains(new GraphNode(l.Link.Item1)) && 
+                        notUsedNodes.Contains(new GraphNode(l.Link.Item2)) ||
+                        usedNodes.Contains(new GraphNode(l.Link.Item2)) &&
+                        notUsedNodes.Contains(new GraphNode(l.Link.Item1))
+                    )
+                    {
+                        if(minPrice == -1)
+                        {
+                            minPrice = l.Price;
+                            optimal = l;
+                        }
+                        else if(l.Price < minPrice)
+                        {
+                            minPrice = l.Price;
+                            optimal = l;
+                        }
+                    }
+                }
+                MST.Add(optimal);
+
+                if (!usedNodes.Contains(new GraphNode(optimal.Link.Item1)))
+                    usedNodes.Add(new GraphNode(optimal.Link.Item1));
+
+                if (!usedNodes.Contains(new GraphNode(optimal.Link.Item2)))
+                    usedNodes.Add(new GraphNode(optimal.Link.Item2));
+
+                notUsedLeaves.Remove(optimal);
+                notUsedNodes.Remove(new GraphNode(optimal.Link.Item1));
+                notUsedNodes.Remove(new GraphNode(optimal.Link.Item2));
+            }
+
+            return new Graph(usedNodes, MST);
+        }
+               
     }
 }
