@@ -120,6 +120,7 @@
             this.критическиеПутиToolStripMenuItem.Name = "критическиеПутиToolStripMenuItem";
             this.критическиеПутиToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
             this.критическиеПутиToolStripMenuItem.Text = "Критические пути";
+            this.критическиеПутиToolStripMenuItem.Click += new System.EventHandler(this.критическиеПутиToolStripMenuItem_Click);
             // 
             // button1
             // 

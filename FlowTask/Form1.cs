@@ -325,5 +325,18 @@ namespace FlowTask
 
             MessageBox.Show("Граф двудольный!", "Ответ", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void критическиеПутиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int[][] matrix = initial2Ddata();
+
+            Flows.FlowAlgorythms g = new Flows.FlowAlgorythms(new Graph(matrix));
+
+            Tuple<int[], int[]> res = g.CriticalPath();
+            string path = String.Join(", ", res.Item1);
+            string time = String.Join(", ", res.Item2);
+
+            LabelState.Text = "Критический путь: " + path + Environment.NewLine + "Старт каждой работы: " + time;
+        }
     }
 }
