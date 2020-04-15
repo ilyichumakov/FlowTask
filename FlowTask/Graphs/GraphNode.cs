@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace FlowTask
 {
+    /// <summary> 
+    /// Вершина графа
+    /// </summary>
     public class GraphNode : ICloneable, IComparer<GraphNode>, IEquatable<GraphNode>
     {
+        /// <summary> 
+        /// Метка вершины
+        /// </summary>
         public int Value { get; set; }       
 
         public GraphNode(int val)

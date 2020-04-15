@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace FlowTask
 {
+    /// <summary> 
+    /// Объекты класса представляют граф, на котором можно выполнять некоторые алгоритмы
+    /// </summary>
     public class Graph
     {
         private List<GraphNode> nodes;
         private List<GraphLeaf> leaves;
         private int[][] matrixGraph;
 
+        /// <summary> 
+        /// Матрица инцидентности графа
+        /// </summary>
         public int[][] Matrix
         {
             get
@@ -20,6 +26,9 @@ namespace FlowTask
             }
         }
 
+        /// <summary> 
+        /// Принимает список вершин и ребер
+        /// </summary>
         public Graph(List<GraphNode> nodes, List<GraphLeaf> leaves)
         {
             this.leaves = leaves;
@@ -56,6 +65,9 @@ namespace FlowTask
             }
         }
 
+        /// <summary> 
+        /// Принимает матрицу инцидентности
+        /// </summary>
         public Graph(int[][] matrix)
         {
             nodes = new List<GraphNode>();
@@ -81,6 +93,9 @@ namespace FlowTask
             throw new NotImplementedException();
         }
 
+        /// <summary> 
+        /// Возвращает граф, на котором ребра представляют кратчайший путь из одной вершины в другую
+        /// </summary>
         public Graph Floyd()
         {
             int n = nodes.Count;           
@@ -102,6 +117,9 @@ namespace FlowTask
             return new Graph(d);
         }
 
+        /// <summary> 
+        /// Возвращает минимальное остовное дерево (граф), полученное алгоритмом Прима
+        /// </summary>
         public Graph PrimAlgorythm()
         {
             List<GraphNode> usedNodes = new List<GraphNode>();

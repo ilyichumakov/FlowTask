@@ -6,12 +6,24 @@ using System.Threading.Tasks;
 
 namespace FlowTask
 {
+    /// <summary> 
+    /// Ребро графа, содержит вес и пару вершин, которые соединяет
+    /// </summary>
     public class GraphLeaf : IComparable<GraphLeaf>, ICloneable, IEquatable<GraphLeaf>
     {
+        /// <summary> 
+        /// Вершины, которые соединяет ребро
+        /// </summary>
         public Tuple<int, int> Link { get; }
 
+        /// <summary> 
+        /// Вес ребра
+        /// </summary>
         public int Price { get; }
 
+        /// <summary> 
+        /// Объекты класса хранят граф, на котором можно выполнять методы, используемые в задачах сетевого планирования
+        /// </summary>
         public GraphLeaf(int a, int b, int cost)
         {
             Link = new Tuple<int, int>(a, b);

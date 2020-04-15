@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using FlowTask;
+using FlowTask.Flows;
 
 namespace Tests
 {
@@ -64,6 +65,54 @@ namespace Tests
             Graph realMST = new Graph(mstMatrix);
 
             Assert.AreEqual(MST.Matrix, realMST.Matrix);
+        }
+
+        [Test]
+        public void FordFalkerson1Test()
+        {
+            int[][] matrixx = new int[5][];
+
+            matrixx[0] = new int[] { 0, 1, 3, 0, 0 };
+            matrixx[1] = new int[] { 1, 0, 0, 2, 0 };
+            matrixx[2] = new int[] { 3, 0, 0, 2, 7 };
+            matrixx[3] = new int[] { 0, 2, 2, 0, 4 };
+            matrixx[4] = new int[] { 0, 0, 7, 4, 0 };
+
+            FlowAlgorythms a = new FlowAlgorythms(new Graph(matrixx));
+            int flow = 4;
+            Assert.AreEqual(flow, a.FordFalkerson(1, 3)); // numeration from 1
+        }
+
+        [Test]
+        public void FordFalkerson2Test()
+        {
+            int[][] matrixx = new int[5][];
+
+            matrixx[0] = new int[] { 0, 1, 3, 0, 0 };
+            matrixx[1] = new int[] { 1, 0, 0, 2, 0 };
+            matrixx[2] = new int[] { 3, 0, 0, 2, 7 };
+            matrixx[3] = new int[] { 0, 2, 2, 0, 4 };
+            matrixx[4] = new int[] { 0, 0, 7, 4, 0 };
+
+            FlowAlgorythms a = new FlowAlgorythms(new Graph(matrixx));
+            int flow = 3;
+            Assert.AreEqual(flow, a.FordFalkerson(1, 2)); // numeration from 1
+        }
+
+        [Test]
+        public void FordFalkerson3Test()
+        {
+            int[][] matrixx = new int[5][];
+
+            matrixx[0] = new int[] { 0, 1, 3, 0, 0 };
+            matrixx[1] = new int[] { 1, 0, 0, 2, 0 };
+            matrixx[2] = new int[] { 3, 0, 0, 2, 7 };
+            matrixx[3] = new int[] { 0, 2, 2, 0, 4 };
+            matrixx[4] = new int[] { 0, 0, 7, 4, 0 };
+
+            FlowAlgorythms a = new FlowAlgorythms(new Graph(matrixx));
+            int flow = 10;
+            Assert.AreEqual(flow, a.FordFalkerson(3, 5)); // numeration from 1
         }
     }
 }
