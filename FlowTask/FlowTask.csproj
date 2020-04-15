@@ -55,6 +55,7 @@
     <Compile Include="Graphs\Graph.cs" />
     <Compile Include="Graphs\GraphLeaf.cs" />
     <Compile Include="Graphs\GraphNode.cs" />
+    <Compile Include="MathExtend.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

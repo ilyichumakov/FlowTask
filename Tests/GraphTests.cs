@@ -54,17 +54,17 @@ namespace Tests
             int[][] mstMatrix = new int[5][];
 
             mstMatrix[0] = new int[] { 0, 1, Int32.MaxValue, Int32.MaxValue, Int32.MaxValue };
-            mstMatrix[1] = new int[] { 1, 0, Int32.MaxValue, 2, Int32.MaxValue };
+            mstMatrix[1] = new int[] { Int32.MaxValue, 0, Int32.MaxValue, 2, Int32.MaxValue };
             mstMatrix[2] = new int[] { Int32.MaxValue, Int32.MaxValue, 0, 2, Int32.MaxValue };
-            mstMatrix[3] = new int[] { Int32.MaxValue, 2, 2, 0, 4 };
-            mstMatrix[4] = new int[] { Int32.MaxValue, Int32.MaxValue, Int32.MaxValue, 4, 0 };
+            mstMatrix[3] = new int[] { Int32.MaxValue, Int32.MaxValue, Int32.MaxValue, 0, 4 };
+            mstMatrix[4] = new int[] { Int32.MaxValue, Int32.MaxValue, Int32.MaxValue, Int32.MaxValue, 0 };
 
             Graph g = new Graph(matrixx);
             Graph MST = g.PrimAlgorythm();
 
             Graph realMST = new Graph(mstMatrix);
 
-            Assert.AreEqual(MST.Matrix, realMST.Matrix);
+            Assert.AreEqual(realMST.Matrix, MST.Matrix);
         }
 
         [Test]
@@ -113,6 +113,27 @@ namespace Tests
             FlowAlgorythms a = new FlowAlgorythms(new Graph(matrixx));
             int flow = 10;
             Assert.AreEqual(flow, a.FordFalkerson(3, 5)); // numeration from 1
+        }
+
+        [Test]
+        public void CriticalPathTest()
+        {
+            int[][] matrixx = new int[5][];
+
+            matrixx[0] = new int[] { 0, 4, 5, Int32.MaxValue, Int32.MaxValue };
+            matrixx[1] = new int[] { Int32.MaxValue, 0, 3, Int32.MaxValue, Int32.MaxValue };
+            matrixx[2] = new int[] { Int32.MaxValue, Int32.MaxValue, 0, 2, 4 };
+            matrixx[3] = new int[] { Int32.MaxValue, Int32.MaxValue, Int32.MaxValue, 0, 1 };
+            matrixx[4] = new int[] { Int32.MaxValue, Int32.MaxValue, Int32.MaxValue, Int32.MaxValue, 0 };
+
+            FlowAlgorythms a = new FlowAlgorythms(new Graph(matrixx));
+            int[] path = new int[] {1, 2, 3, 5 };
+            int[] criticalTime = new int[] { 0, 4, 7, 9, 11 };
+
+            Tuple<int[], int[]> res = a.CriticalPath();
+
+            Assert.AreEqual(path, res.Item1); // numeration from 1
+            Assert.AreEqual(criticalTime, res.Item2);
         }
     }
 }

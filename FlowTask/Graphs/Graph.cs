@@ -9,7 +9,7 @@ namespace FlowTask
     /// <summary> 
     /// Объекты класса представляют граф, на котором можно выполнять некоторые алгоритмы
     /// </summary>
-    public class Graph
+    public class Graph : ICloneable
     {
         private List<GraphNode> nodes;
         private List<GraphLeaf> leaves;
@@ -47,11 +47,12 @@ namespace FlowTask
                     if (i == j) continue;
 
                     Tuple<int, int> t1 = new Tuple<int, int>(i + 1, j + 1);
-                    Tuple<int, int> t2 = new Tuple<int, int>(j + 1, i + 1);
+                    //Tuple<int, int> t2 = new Tuple<int, int>(j + 1, i + 1);
 
                     foreach (GraphLeaf l in leaves)
                     {
-                        if (l.Link.Equals(t1) || l.Link.Equals(t2))
+                        //if (l.Link.Equals(t1) || l.Link.Equals(t2))
+                        if (l.Link.Equals(t1))
                         {
                             matrixGraph[i][j] = l.Price;
                             break;
@@ -73,8 +74,17 @@ namespace FlowTask
             nodes = new List<GraphNode>();
             leaves = new List<GraphLeaf>();
             int n = matrix.GetUpperBound(0) + 1;
-            matrixGraph = matrix;
-         
+            matrixGraph = new int[n][];
+
+            for (int i = 0; i < n; i++)
+            {
+                matrixGraph[i] = new int[n];
+                for (int j = 0; j < n; j++)
+                {
+                    matrixGraph[i][j] = matrix[i][j];
+                }
+            }
+
             for (int i = 0; i < n; i++)
             {
                 GraphNode node = new GraphNode(i + 1);
@@ -170,6 +180,22 @@ namespace FlowTask
 
             return new Graph(usedNodes, MST);
         }
-               
+
+        public object Clone()
+        {
+            int n = matrixGraph.GetUpperBound(0) + 1;
+            int[][] matrix = new int[n][];
+
+            for (int i = 0; i < n; i++)
+            {
+                matrix[i] = new int[n];
+                for (int j = 0; j < n; j++)
+                {
+                    matrix[i][j] = matrixGraph[i][j];
+                }
+            }
+
+            return new Graph(matrix);
+        }
     }
 }

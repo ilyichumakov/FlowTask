@@ -22,12 +22,18 @@ namespace FlowTask
         public int Price { get; }
 
         /// <summary> 
-        /// Объекты класса хранят граф, на котором можно выполнять методы, используемые в задачах сетевого планирования
+        /// Величина потока
+        /// </summary>
+        public int Flow { get; set; }
+
+        /// <summary> 
+        /// Задаётся направление из a в b и вес ребра 
         /// </summary>
         public GraphLeaf(int a, int b, int cost)
         {
             Link = new Tuple<int, int>(a, b);
             Price = cost;
+            Flow = 0;
         }
 
         public int CompareTo(GraphLeaf obj)
